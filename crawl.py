@@ -83,8 +83,8 @@ def extract_page_data(html, page_url):
         "page_url": page_url,
         "h1": h1,
         "first_paragraph": first_paragraph,
-        "outgoing_link_urls": ";".join(outgoing_links),
-        "image_urls": ";".join(image_urls),
+        "outgoing_link_urls": outgoing_links,
+        "image_urls":image_urls,
     }
 
 
@@ -173,7 +173,7 @@ class AsyncCrawler:
                         task.cancel()
                     return False
                 
-                
+                self.page_data[normalized_url]=None
                 return True
     async def get_html(self,url):
         headers = {"User-Agent": "BootCrawler/1.0"}
@@ -223,25 +223,8 @@ class AsyncCrawler:
 
     async def crawl(self):
         await self.crawl_page(self.base_url)
-        return self.page_data
-            
-           
+        return self.page_data   
 async def crawl_site_async(base_url,max_concurrency,max_pages):
     async with AsyncCrawler(base_url,max_concurrency,max_pages) as crawler:    
         result=await crawler.crawl()
         return result
-
-
-                
-
-
-        
-
-        
-     
-    
-
-
-    
-    
-      

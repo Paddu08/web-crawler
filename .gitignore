@@ -9,3 +9,5 @@ wheels/
 # Virtual environments
 .venv
 *.pyc
+*.csv
+*.DS_Store
